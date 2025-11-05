@@ -1,0 +1,63 @@
+{
+
+  "1": {
+    "Number": 1,
+    "Name": "Margherita",
+    "Description": [ "tomato", "Cheese" ],
+    "Pris": 85
+  },
+  "2": {
+    "Number": 2,
+    "Name": "Vesuvio",
+    "Description": [ "tomato", "Cheese", "Ham" ],
+    "Pris": 97
+  },
+  "3": {
+    "Number": 3,
+    "Name": "Capricciosa",
+    "Description": [ "Tomato", "cheese", "ham", "mushrooms" ],
+    "Pris": 99
+  },
+  "4": {
+    "Number": 4,
+    "Name": "Calzone",
+    "Description": [ "Baked pizza", "tomato", "cheese", "ham", "mushroom" ],
+    "Pris": 99
+  },
+  "5": {
+    "Number": 5,
+    "Name": "Quattro Stagioni",
+    "Description": [ "Tomato", "cheese", "ham", "mushroom", "shrimps", "paprika" ],
+    "Pris": 99
+  },
+  "6": {
+    "Number": 6,
+    "Name": "Marinara",
+    "Description": [ "Tomato", "cheese", "shrimp", "clams", "garlic" ],
+    "Pris": 97
+  },
+  "7": {
+    "Number": 7,
+    "Name": "Vegetariana ",
+    "Description": [ "Tomato", "cheese", "Vegetables" ],
+    "Pris": 98
+  },
+  "8": {
+    "Number": 8,
+    "Name": "Italiana",
+    "Description": [ "Tomato", "cheese", "onions", "meat", "sauce" ],
+    "Pris": 99
+  },
+  "9": {
+    "Number": 9,
+    "Name": "Gorgonzola",
+    "Description": [ "Tomato", "gorgonzola", "onion", "mushroom" ],
+    "Pris": 99
+  },
+  "10": {
+    "Number": 10,
+    "Name": "Contadina",
+    "Description": [ "Tomato", "cheese", "mushrooms", "olives" ],
+    "Pris": 97
+  }
+}
