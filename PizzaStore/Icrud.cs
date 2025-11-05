@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace PizzaStore
 {
-    interface Icrud<GenKey, GenObject>
+    interface Icrud<Tkey, Tobject>
     {
 
-        void Create(GenObject Obj);
-        void Read(IdKey value);
-        void Update(StoringObject Obj);
-        void Delete(IdKey value);
+        void Create(Tobject Obj);
+        void Read(Tkey value);
+        void Update(Tobject Obj);
+        void Delete(Tkey value);
 
     }
 }
