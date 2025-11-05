@@ -31,16 +31,16 @@ namespace PizzaStore
             }
             return pizzaPrice + 40;
         }
-        public void CompleteOrder()
-        {
-            OrderCustomer.AllCustomerOrders.Add(ToString());
-            //return OrderCustomer;
-        }
+        //public void CompleteOrder()
+        //{
+        //    OrderCustomer.AllCustomerOrders.Add(ToString());
+        //    //return OrderCustomer;
+        //}
 
         public override string ToString()
         {
             return $"\nOrder ID: {SpecificOrderID}\n" +
-                $"Customer: {OrderCustomer.SpecificCustomerID} - {OrderCustomer.Name}\n" +
+                $"Customer: {OrderCustomer.Id} - {OrderCustomer.Name}\n" +
                 $"Pizzas:\n----\n{string.Join("\n", PizzasInOrder)}-----\n" +
                 $"Total Order Price: {CalculateTotalPrice()}kr";
         }
