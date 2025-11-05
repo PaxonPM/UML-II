@@ -6,31 +6,28 @@ using System.Threading.Tasks;
 
 namespace PizzaStore
 {
-    internal class Customer
+    public class Customer
     {
         public static int CustomerID { get; private set; }
-        public int SpecificCustomerID { get; private set; }
-        public string Name { get; private set; }
-        public string Email { get; set; }
-        public string Tlf { get; set; }
+        public int Id { get; set; }
+        public required string Name { get; set; }
+        public required string Email { get; set; }
+        public required string Tlf { get; set; }
 
 
-        public List<string> AllCustomerOrders { get; set; }
+       public List<string> AllCustomerOrders { get; set; } = new();
 
-        public Customer(string name, string email, string tlf)
+        public Customer()
         {
             CustomerID++;
-            SpecificCustomerID = CustomerID;
-            Name = name;
-            Email = email;
-            Tlf = tlf;
+            //Id = CustomerID;
             AllCustomerOrders = new();
         }
 
         public override string ToString()
         {
-            return $"Customer ID: {SpecificCustomerID}\nName: {Name}\nEmail: {Email}\nTlf: {Tlf}\n" +
-                $"Orders:\n{string.Join("\n", AllCustomerOrders)}";
+            return $"Customer ID: {Id}\nName: {Name}\nEmail: {Email}\nTlf: {Tlf}\n"; //+
+                //$"Orders:\n{string.Join("\n", AllCustomerOrders)}";
         }
 
     }
