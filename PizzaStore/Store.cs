@@ -12,11 +12,8 @@ namespace PizzaStore
 
         public void Start()
         {
-            Console.WriteLine($"Creating the 3 Pizza Objects");
-            Pizza Margherita = new Pizza(1, "- Margherita", "Tomato, Cheese", 85);
-            Pizza Vesuvio = new Pizza(2, "Vesuvio", "- tomato, Cheese, Ham", 97);
-            Pizza Capri = new Pizza(3, "Capricciosa", "- Tomato, cheese, ham, mushrooms", 99);
-            //Pizza Calzone = new Pizza(4, "Calzone", "Baked Pizza, Tomata, Cheese, Ham, Mushroom", 99);
+            Console.WriteLine($"Creating the Pizzamenu with Pizza Objects loaded from JSON");
+            PizzaMenu menu = new PizzaMenu("pizzas.json");
 
             Console.WriteLine($"Creating the 3 Customer Objects");
             Customer Peter = new Customer("Peter", "peter@gmail.com", "44332211");
@@ -25,13 +22,13 @@ namespace PizzaStore
 
             Console.WriteLine($"Creating the 3 Order Objects and adding a pizza object for each order");
             Order Order1 = new Order(Peter);
-            Order1.PizzasInOrder.Add(Margherita);
+            Order1.PizzasInOrder.Add(menu.GetPizzaByNumber("1"));
 
             Order Order2 = new Order(Tim);
-            Order2.PizzasInOrder.Add(Vesuvio);
+            Order2.PizzasInOrder.Add(menu.GetPizzaByNumber("2"));
 
             Order Order3 = new Order(Kim);
-            Order3.PizzasInOrder.Add(Capri);
+            Order3.PizzasInOrder.Add(menu.GetPizzaByNumber("3"));
 
 
             Console.WriteLine($"\nAll the objects was created!!");
@@ -51,8 +48,8 @@ namespace PizzaStore
             Console.WriteLine($"-------------------------------------------------------------------");
             Console.WriteLine("1 order with several pizzas for Kim");
             Order Order4 = new Order(Kim);
-            Order4.PizzasInOrder.Add(Vesuvio);
-            Order4.PizzasInOrder.Add(Capri);
+            Order4.PizzasInOrder.Add(menu.GetPizzaByNumber("3"));
+            Order4.PizzasInOrder.Add(menu.GetPizzaByNumber("4"));
             Order4.CompleteOrder();
             Order3.CompleteOrder();
             Console.WriteLine($"Price for Order 4:\n{Order4.CalculateTotalPrice()}kr\n-------------------------------------");

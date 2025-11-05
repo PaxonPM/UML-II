@@ -8,20 +8,12 @@ using System.Threading.Tasks;
 
 namespace PizzaStore
 {
-    internal class Pizza
+    class Pizza
     {
-        public int Number { get; }
-        public string Name { get; }
-        public string Description { get; }
-        public int Price { get; }
-
-        public Pizza(int number, string name, string description, int price)
-        {
-            Number = number;
-            Name = name;
-            Description = description;
-            Price = price;
-        }
+        public int Number { get; set; }
+        public required string Name { get; set; }
+        public required string Description { get; set; }
+        public int Price { get; set; }
 
         public override string ToString()
         {
