@@ -8,12 +8,14 @@ using System.IO;
 
 namespace PizzaStore
 {
-     class PizzaMenu : Icrud<Pizza, string>
+     public class PizzaMenu : Icrud<string, Pizza>
     {
+        public string FilePath { get; private set; }
         public Dictionary<string, Pizza> Pizzas { get; private set; } = new Dictionary<string, Pizza>();
         public PizzaMenu(string filePath)
         {
-            LoadPizzasFromJson(filePath);
+            FilePath = filePath;
+            LoadPizzasFromJson(FilePath);
         }
 
         private void LoadPizzasFromJson(string filePath)
@@ -30,10 +32,12 @@ namespace PizzaStore
             }
         }
 
+      
+
         public void PrintMenu()
         {
             Console.WriteLine("---- Pizza Menu ----");
-            foreach (var pizza in Pizzas.Values)
+            foreach (Pizza pizza in Pizzas.Values)
             {
                 Console.WriteLine(pizza);
             }
@@ -44,21 +48,68 @@ namespace PizzaStore
             return Pizzas[number];
         }
 
-        public override void Create(Pi)
+        public void Create(Pizza pizzaObj)
         {
+            string key = pizzaObj.Number.ToString();
+
+            if (Pizzas.ContainsKey(key))
+                throw new Exception($"Pizza with number {key} already exists");
+
+
+            Pizzas[key] = pizzaObj;
+
+            try
+            {
+                string jsonString = JsonSerializer.Serialize(Pizzas);
+                File.WriteAllText(FilePath, jsonString);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error saving pizzas: {ex.Message}");
+            }
+        }
+        public void Read(string key)
+        {
+            if (!Pizzas.ContainsKey(key))
+                throw new Exception($"Pizza with number {key} doesn't exists");
+
+            Console.WriteLine($"You asked for this pizza: {Pizzas[key]}");
+        }
+        public void Update(Pizza pizzaObj)
+        {
+            string key = pizzaObj.Number.ToString();
+
+            if (!Pizzas.ContainsKey(key))
+                throw new Exception($"Pizza with number {key} doesn't exists");
+
+            Pizzas[key] = pizzaObj;
+
+            try
+            {
+                string jsonString = JsonSerializer.Serialize(Pizzas);
+                File.WriteAllText(FilePath, jsonString);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error saving pizzas: {ex.Message}");
+            }
 
         }
-        public void Read()
+        public void Delete(string key)
         {
+            if (!Pizzas.ContainsKey(key))
+                throw new Exception($"Pizza with number {key} doesn't exists");
+            Pizzas.Remove(key);
 
-        }
-        public void Update()
-        {
-
-        }
-        public void Delete()
-        {
-
+            try
+            {
+                string jsonString = JsonSerializer.Serialize(Pizzas);
+                File.WriteAllText(FilePath, jsonString);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error saving pizzas: {ex.Message}");
+            }
         }
     }
 }
