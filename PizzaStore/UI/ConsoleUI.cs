@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PizzaStore.Customers;
+using PizzaStore.Pizzas;
 
-namespace PizzaStore
+
+namespace PizzaStore.UI
 {
     public class ConsoleUI
     {
@@ -18,9 +16,10 @@ namespace PizzaStore
             string[] lines =
             {
                 "Welcome to the Pizza Store!",
-                "1. Customer",
-                "2. Admin",
-                "3. Initiate Store.Start() for assignment",
+                "1. Order",
+                "2. Customer",
+                "3. Admin",
+                "4. (Tutorial) Initiate Store.Start() for assignment",
                 "0. Exit",
                 
             };
@@ -32,35 +31,33 @@ namespace PizzaStore
             string[] lines =
             {
                 "Order Menu:",
-                "1. View Pizza Menu",
-                "2. Place Order",
-                "3. View Past Orders",
+                "1. Place Order",
+                "2. View Past Orders",
                 "0. Back to Main Menu",
                 
             };
             PrintLinesSlowly(lines);
             Console.Write("Please select an option: ");
         }
-
         public void SubOrderMenu()
         {             string[] lines =
             {
                 "Sub Order Menu:",
                 "1. View Pizza Menu",
                 "2. Add Pizza to Order",
-                "3. Remove Pizza from Order",
-                "4. Finalize Order",
+                "3. Show Current Order",
+                "4. Remove Pizza from Order",
+                "5. Finalize Order",
                 "0. Back to Order Menu"
             };
             PrintLinesSlowly(lines);
             Console.Write("Please select an option: ");
         }
-
-        public void CustomerSelectionMenu()
+        public void CustomerMenu()
         {
             string[] lines =
             {
-                "Customer Selection Menu:",
+                "Customer Menu:",
                 "1. Print CustomerFile",
                 "2. New Customer",
                 "3. Existing Customer",
@@ -86,11 +83,8 @@ namespace PizzaStore
             PrintLinesSlowly(lines);
             Console.Write("Please select an option: ");
         }
-
-        public Customer GetCustomerDetailsFromUser()
+        public Customer GetCustomerDetailsForNewUser()
         {
-            Console.Write("Enter Customer Id: ");
-            string number = Console.ReadLine() ?? "0";
             Console.Write("Enter Customer Name: ");
             string name = Console.ReadLine() ?? "";
             Console.Write("Enter Customer Email: ");
@@ -99,13 +93,23 @@ namespace PizzaStore
             string tlf = Console.ReadLine() ?? "";
             return new Customer
             {
-                Id = number,
+               
                 Name = name,
                 Email = email,
                 Tlf = tlf
             };
         }
-
+        public Customer GetCustomerDetailsToUpdateUser(Customer customerToUpdate)
+        {
+            
+            Console.Write("Enter Customer Name: ");
+            customerToUpdate.Name = Console.ReadLine() ?? "";
+            Console.Write("Enter Customer Email: ");
+            customerToUpdate.Email = Console.ReadLine() ?? "";
+            Console.Write("Enter Customer Phone Number: ");
+            customerToUpdate.Tlf = Console.ReadLine() ?? "";
+            return customerToUpdate;
+        }
         public Pizza GetPizzaDetailsFromAdmin()
         {
             Console.Write("Enter Pizza Number: ");
@@ -124,23 +128,24 @@ namespace PizzaStore
                 Price = price
             };
         }
-
         public void Pause()
         {
             Console.WriteLine("\nPress any key to continue...");
             Console.ReadKey(true);
+            Console.WriteLine("");
+
         }
-        private void PrintLinesSlowly(string[] lines, int charDelay = 40, int lineDelay = 300)
+        public void PrintLinesSlowly(string[] lines, int charDelay = 20, int lineDelay = 200)
         {
             foreach (var line in lines)
             {
                 foreach (var ch in line)
                 {
                     Console.Write(ch);
-                    System.Threading.Thread.Sleep(charDelay);
+                    Thread.Sleep(charDelay);
                 }
                 Console.WriteLine();
-                System.Threading.Thread.Sleep(lineDelay);
+                Thread.Sleep(lineDelay);
             }
 
         }
