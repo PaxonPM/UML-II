@@ -26,7 +26,7 @@ namespace PizzaStore
                     /|      
                     / \
               ----------------
-                  H E L L O !
+               W E L C O M E !
               ----------------
             ");
             #endregion
