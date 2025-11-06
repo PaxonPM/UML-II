@@ -1,143 +1,149 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-
-using PizzaStore;
+﻿using PizzaStore;
+using PizzaStore.Customers;
+using PizzaStore.Orders;
+using PizzaStore.Pizzas;
+using PizzaStore.UI;
 
 bool check = true;
 
 ConsoleUI ui = new ConsoleUI();
-PizzaMenu menu = new PizzaMenu("pizzas.json");
-CustomerFile cfile = new CustomerFile("customers.json");
-
+PizzaMenu menu = new PizzaMenu("Data/pizzas.json");
+CustomerFile cfile = new CustomerFile("Data/customers.json");
+Store store = new Store();
 
 while (check)
 {
     bool back = false;
-    Console.Clear();
+    
     ui.Logo();
     ui.StartMenu();
     string? input = Console.ReadLine();
     switch (input)
     {
-        //Order Menu
+        //Order Menu - Place Order(SubOrderMenu), View Past Orders
         case "1":
             while (!back)
             {
                 Console.WriteLine("\n--------------------------------------------");
                 Console.Write("Please enter your Customer Id: ");
-                string customerId = Console.ReadLine() ?? "";
+                int customerId = int.Parse(Console.ReadLine() ?? "0");
                 Customer? customer = cfile.Customers.FirstOrDefault(c => c.Id == customerId);
                 if (customer != null)
                 {
                     Console.WriteLine($"\nWelcome back, {customer.Name}!");
                     Order currentOrder = new Order(customer);
+                    ui.OrderMenu();
+                    string? case1input = Console.ReadLine();
+                    switch (case1input)
+                    {
+                        //Place order
+                        case "1":
+                            while (!back)
+                            {
+                                Console.WriteLine("\n--------------------------------------------");
+                                ui.SubOrderMenu();
+                                string? subOrderInput = Console.ReadLine();
+                                switch (subOrderInput)
+                                {
+                                    //View Menu
+                                    case "1":
+                                        Console.WriteLine("\n--------------------------------------------");
+                                        menu.PrintMenu();
+                                        ui.Pause();
+                                        break;
+                                    //Add Pizza to Order
+                                    case "2":
+                                        Console.WriteLine("\n--------------------------------------------");
+                                        Console.Write("Enter Pizza Number to add to your order: ");
+                                        string? pizzaNumberToAdd = Console.ReadLine() ?? "";
+                                        if (menu.Pizzas.ContainsKey(pizzaNumberToAdd))
+                                        {
+                                            Pizza pizzaToAdd = menu.GetPizzaByNumber(pizzaNumberToAdd);
+                                            currentOrder.PizzasInOrder.Add(pizzaToAdd);
+                                            Console.WriteLine($"\nAdded to order: \n{pizzaToAdd}");
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Pizza not found. Please try again.");
+                                        }
+                                        ui.Pause();
+                                        break;
+                                    //Show Current Order
+                                    case "3":
+                                        Console.WriteLine(currentOrder.ToString());
+                                        ui.Pause();
+                                        break;
+                                    //Remove Pizza from Order
+                                    case "4":
+                                        Console.WriteLine("\n--------------------------------------------");
+                                        Console.Write("Enter Pizza Number to remove from your order: ");
+                                        int? pizzaNumber = int.Parse(Console.ReadLine() ?? "0");
+                                        Pizza? pizzaToRemove = currentOrder.PizzasInOrder.FirstOrDefault(p => p.Number == pizzaNumber);
+                                        if (pizzaToRemove != null)
+                                        {
+                                            currentOrder.PizzasInOrder.Remove(pizzaToRemove);
+                                            Console.WriteLine($"\nRemoved pizza number: {pizzaNumber}");
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Pizza not found in your order.");
+                                        }
+                                        ui.Pause();
+                                        break;
+                                    //Finalize Order
+                                    case "5":
+                                        Console.WriteLine("\n--------------------------------------------");
+                                        Console.WriteLine("Finalizing your order...");
+                                        Console.WriteLine("Your order details:");
+                                        Console.WriteLine(currentOrder.ToString()); 
+                                        Customer saveCustomer = currentOrder.CompleteOrder();
+                                        cfile.Update(saveCustomer);
+                                        back = true;
+                                        ui.Pause();
+                                        break;
+                                    // Back to Order Menu
+                                    case "0":
+                                        back = true;
+                                        Console.Clear();
+                                        break;
+                                    default:
+                                        Console.WriteLine("Invalid option. Please try again.");
+                                        break;
+                                }
+                            }
+                            break;
+                        //View Past Orders
+                        case "2":
+                            Console.WriteLine("\n--------------------------------------------");
+                            Console.WriteLine(customer.ToString());
+                            ui.Pause();
+                            break;
+                        // Back to Main Menu
+                        case "0":
+                            back = true;
+                            Console.Clear();
+                            break;
+                        default:
+                            Console.WriteLine("Invalid option. Please try again.");
+                            break;
+                    }
                 }
                 else
                 {
+                    Console.WriteLine("Customer not found. Returning to main menu.");
                     back = true;
                     break;
                 }
-                ui.OrderMenu();
-                string? case1input = Console.ReadLine();
-                switch (case1input)
-                {
-                    //Place order
-                    case "1":
-                        while(!back)
-                        {
-                            Console.WriteLine("\n--------------------------------------------");
-                            ui.SubOrderMenu();
-                            string? subOrderInput = Console.ReadLine();
-                            switch (subOrderInput)
-                            {
-                                //View Menu
-                                case "1":
-                                    Console.WriteLine("\n--------------------------------------------");
-                                    menu.PrintMenu();
-                                    ui.Pause();
-                                    break;
-                                //Add Pizza to Order
-                                case "2":
-                                    Console.WriteLine("\n--------------------------------------------");
-                                    Console.Write("Enter Pizza Number to add to your order: ");
-                                    string? pizzaNumberToAdd = Console.ReadLine() ?? "";
-                                    if (menu.Pizzas.ContainsKey(pizzaNumberToAdd))
-                                    {
-                                        Pizza pizzaToAdd = menu.GetPizzaByNumber(pizzaNumberToAdd);
-
-                                        Console.WriteLine($"\nAdded to order: \n{pizzaToAdd}");
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Pizza not found. Please try again.");
-                                    }
-                                    ui.Pause();
-                                    break;
-                                //Remove Pizza from Order
-                                case "3":
-                                    Console.WriteLine("\n--------------------------------------------");
-                                    Console.Write("Enter Pizza Number to remove from your order: ");
-                                    string? pizzaNumberToRemove = Console.ReadLine() ?? "";
-                                    Pizza? pizzaToRemove = customer.AllCustomerOrders
-                                        .Select(order => menu.Pizzas.Values.FirstOrDefault(p => p.ToString() == order))
-                                        .FirstOrDefault(p => p != null && p.Number.ToString() == pizzaNumberToRemove);
-                                    if (pizzaToRemove != null)
-                                    {
-                                        customer.AllCustomerOrders.Remove(pizzaToRemove.ToString());
-                                        Console.WriteLine($"\nRemoved from order: \n{pizzaToRemove}");
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Pizza not found in your order. Please try again.");
-                                    }
-                                    ui.Pause();
-                                    break;
-                                //Finalize Order
-                                case "4":
-                                    Console.WriteLine("\n--------------------------------------------");
-                                    Console.WriteLine("Finalizing your order...");
-                                    Console.WriteLine("Your order details:");
-                                    foreach (var order in customer.AllCustomerOrders)
-                                    {
-                                        Console.WriteLine(order);
-                                    }
-                                    customer.AllCustomerOrders.Clear();
-                                    back = true;
-                                    ui.Pause();
-                                    break;
-                                // Back to Order Menu
-                                case "0":
-                                    back = true;
-                                    break;
-                                default:
-                                    Console.WriteLine("Invalid option. Please try again.");
-                                    break;
-                            }
-                        }
-                        break;
-                    //View Past Orders
-                    case "2":
-                        Console.WriteLine("\n--------------------------------------------");
-                        Console.WriteLine("Feature under development.");
-                        ui.Pause();
-                        break;
-                    // Back to Main Menu
-                    case "0":
-                        back = true;
-                        break;
-                    default:
-                        Console.WriteLine("Invalid option. Please try again.");
-                        break;
-                }
+                
             }
             break;
 
-        //CustomerMenu PrintCustomerFile, NewCustomer, ExistingCustomer, UpdateCustomerInformation, DeleteCustomer
+        //CustomerMenu - PrintCustomerFile, New Customer, read Customer, Update Customer, Delete Customer
         case "2":
             while (!back)
             {
                 Console.WriteLine("\n--------------------------------------------");
-                ui.CustomerSelectionMenu();
+                ui.CustomerMenu();
                 string? case1input = Console.ReadLine();
                 switch (case1input)
                 {
@@ -152,9 +158,10 @@ while (check)
                     // New Customer
                     case "2":
                         Console.WriteLine("\n--------------------------------------------");
-                        Customer newCustomer = ui.GetCustomerDetailsFromUser();
+                        Customer newCustomer = ui.GetCustomerDetailsForNewUser();
                         cfile.Create(newCustomer);
                         Console.WriteLine($"\nNew user: \n{newCustomer}");
+                        Console.WriteLine($"Please save your customer id since its needed to order pizza! :)");
                         ui.Pause();
                         break;
 
@@ -170,17 +177,31 @@ while (check)
                     // Update Customer Information
                     case "4":
                         Console.WriteLine("\n--------------------------------------------");
-                            Customer updatedCustomer = ui.GetCustomerDetailsFromUser();
+                        Console.Write("Enter your customer ID to update: ");
+                        int customerToUpdate = int.Parse(Console.ReadLine() ?? "0");
+                        Customer? CustomerObjSelected = cfile.CheckIdToUpdate(customerToUpdate);
+                        if (CustomerObjSelected != null)
+                        {
+                            Console.WriteLine($"\nCurrent user info:\n{CustomerObjSelected}");
+                            Customer? updatedCustomer = ui.GetCustomerDetailsToUpdateUser(CustomerObjSelected);
                             cfile.Update(updatedCustomer);
                             Console.WriteLine($"\nUpdated user:\n {updatedCustomer}");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Customer not found. cannot update");
                             ui.Pause();
                             break;
+                        }
+                        
+                        ui.Pause();
+                        break;
 
                     // Delete Customer
                     case "5":
                         Console.WriteLine("\n--------------------------------------------");
                         Console.Write("Enter your customer ID to delete: ");
-                        string customerIdToDelete = Console.ReadLine() ?? "";
+                        int customerIdToDelete = int.Parse(Console.ReadLine() ?? "0");
                         cfile.Delete(customerIdToDelete);
                         Console.WriteLine($"\nDeleted customer ID: {customerIdToDelete}");
                         ui.Pause();
@@ -189,6 +210,7 @@ while (check)
                     // Back to Main Menu
                     case "0":
                         back = true;
+                        Console.Clear();
                         break;
 
                     default:
@@ -198,7 +220,7 @@ while (check)
             }
             break;
 
-        //AdminMenu PrintMenu, Create, Read, Update, Delete
+        //AdminMenu - PrintMenu, Create Pizza, Read Pizza, Update pizza, Delete pizza
         case "3":
             while (!back)
             {
@@ -207,7 +229,7 @@ while (check)
                 string? case2input = Console.ReadLine();
                 switch (case2input)
                 {
-                    //PrinMenu
+                    //PrintMenu
                     case "1":
                         Console.WriteLine("\n--------------------------------------------");
                         menu.PrintMenu();
@@ -254,6 +276,7 @@ while (check)
                     // Back to Main Menu
                     case "0":
                         back = true;
+                        Console.Clear();
                         break;
                     default:
                         Console.WriteLine("Invalid option. Please try again.");
@@ -262,7 +285,15 @@ while (check)
             }
 
             break;
-        
+
+        //Initiate Store.Start()
+        case "4":
+            Console.WriteLine("\n--------------------------------------------");
+            store.Start();
+            ui.Pause();
+            Console.Clear();
+            break;
+
         //Exit
         case "0":
             check = false;
@@ -273,36 +304,3 @@ while (check)
             break;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
