@@ -27,16 +27,30 @@ namespace PizzaStore
             PrintLinesSlowly(lines);
             Console.Write("Please select an option: ");
         }
-        public void CustomerMenu()
+        public void OrderMenu()
         {
             string[] lines =
             {
-                "Customer Menu:",
+                "Order Menu:",
                 "1. View Pizza Menu",
                 "2. Place Order",
                 "3. View Past Orders",
                 "0. Back to Main Menu",
                 
+            };
+            PrintLinesSlowly(lines);
+            Console.Write("Please select an option: ");
+        }
+
+        public void SubOrderMenu()
+        {             string[] lines =
+            {
+                "Sub Order Menu:",
+                "1. View Pizza Menu",
+                "2. Add Pizza to Order",
+                "3. Remove Pizza from Order",
+                "4. Finalize Order",
+                "0. Back to Order Menu"
             };
             PrintLinesSlowly(lines);
             Console.Write("Please select an option: ");
@@ -65,8 +79,8 @@ namespace PizzaStore
                 "1. View Pizza Menu",
                 "2. Add Pizza",
                 "3. Read Pizza",
-                "3. Update Pizza",
-                "4. Delete Pizza",
+                "4. Update Pizza",
+                "5. Delete Pizza",
                 "0. Back to Main Menu"
             };
             PrintLinesSlowly(lines);
@@ -76,7 +90,7 @@ namespace PizzaStore
         public Customer GetCustomerDetailsFromUser()
         {
             Console.Write("Enter Customer Id: ");
-            int number = int.Parse(Console.ReadLine() ?? "0");
+            string number = Console.ReadLine() ?? "0";
             Console.Write("Enter Customer Name: ");
             string name = Console.ReadLine() ?? "";
             Console.Write("Enter Customer Email: ");

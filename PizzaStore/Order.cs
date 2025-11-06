@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PizzaStore
 {
-    internal class Order
+    public class Order
     {
         public static int OrderID { get; private set; }
         public int SpecificOrderID { get; }
