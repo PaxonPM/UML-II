@@ -1,18 +1,18 @@
 ﻿[
   {
-    "Id": 1,
+    "Id": "1",
     "Name": "Peter",
     "Email": "peter_griffin@gmail.com",
     "Tlf": "12345678"
   },
   {
-    "Id": 2,
+    "Id": "2",
     "Name": "Lois",
     "Email": "lois_griffin@gmail.com",
     "Tlf": "87654321"
   },
   {
-    "Id": 3,
+    "Id": "3",
     "Name": "Stewie",
     "Email": "stewie_griffin@gmail.com",
     "Tlf": "11223344"

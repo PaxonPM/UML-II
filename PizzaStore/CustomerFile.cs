@@ -8,7 +8,7 @@ using System.IO;
 
 namespace PizzaStore
 {
-    public class CustomerFile : Icrud<int, Customer>
+    public class CustomerFile : Icrud<string, Customer>
     {
 
         public string FilePath { get; private set; }
@@ -49,7 +49,7 @@ namespace PizzaStore
             }
         }
 
-        public bool CheckIdToUpdate(int customerId)
+        public bool CheckIdToUpdate(string customerId)
         {
             Customer? existingCustomer = Customers.FirstOrDefault(c => c.Id == customerId);
             if (existingCustomer == null)
@@ -86,7 +86,7 @@ namespace PizzaStore
                 throw new Exception($"Customer with ID {customerObj.Id} doesn't exist");
             }
         }
-        public void Delete(int customerId)
+        public void Delete(string customerId)
         {
             Customer? customerToRemove = Customers.Find(c => c.Id == customerId);
             
@@ -109,17 +109,18 @@ namespace PizzaStore
                 throw new Exception($"Customer with ID {customerId} doesn't exist");
             }
         }
-        public void Read(int customerId)
+
+        public void Read(string customerName)
         {
-            Customer? customerToRead = Customers.FirstOrDefault(c => c.Id == customerId);
-            
+            Customer? customerToRead = Customers.FirstOrDefault(c => c.Name.Equals(customerName, StringComparison.OrdinalIgnoreCase));
+
             if (customerToRead != null)
             {
                 Console.WriteLine($"You asked for this customer: \n{customerToRead}");
             }
             else
             {
-                throw new Exception($"Customer with ID {customerId} doesn't exist");
+                throw new Exception($"Customer with ID {customerName} doesn't exist");
             }
             
         }

@@ -9,7 +9,7 @@ namespace PizzaStore
     public class Customer
     {
         public static int CustomerID { get; private set; }
-        public int Id { get; set; }
+        public string Id { get; set; }
         public required string Name { get; set; }
         public required string Email { get; set; }
         public required string Tlf { get; set; }
@@ -20,7 +20,7 @@ namespace PizzaStore
         public Customer()
         {
             CustomerID++;
-            //Id = CustomerID;
+            Id = "";
             AllCustomerOrders = new();
         }
 
