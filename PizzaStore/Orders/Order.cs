@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using PizzaStore.Customers;
+using PizzaStore.Pizzas;
 
-namespace PizzaStore
+
+namespace PizzaStore.Orders
 {
     public class Order
     {
@@ -31,18 +30,23 @@ namespace PizzaStore
             }
             return pizzaPrice + 40;
         }
-        //public void CompleteOrder()
-        //{
-        //    OrderCustomer.AllCustomerOrders.Add(ToString());
-        //    //return OrderCustomer;
-        //}
+        public Customer CompleteOrder()
+        {
+            OrderCustomer.AllCustomerOrders.Add(ToString());
+            return OrderCustomer;
+
+            //return OrderCustomer;
+        }
 
         public override string ToString()
         {
-            return $"\nOrder ID: {SpecificOrderID}\n" +
+            return $"--------------------" +
+                $"\nOrder ID: {SpecificOrderID}\n" +
                 $"Customer: {OrderCustomer.Id} - {OrderCustomer.Name}\n" +
                 $"Pizzas:\n----\n{string.Join("\n", PizzasInOrder)}-----\n" +
-                $"Total Order Price: {CalculateTotalPrice()}kr";
+                $"Delivery fee + tax: 40kr\n" +
+                $"Total Order Price: {CalculateTotalPrice()}kr" +
+                $"\n---------------------";
         }
 
     }
