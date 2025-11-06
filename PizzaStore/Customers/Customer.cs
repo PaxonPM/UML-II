@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PizzaStore
+﻿
+namespace PizzaStore.Customers
 {
     public class Customer
     {
         public static int CustomerID { get; private set; }
-        public string Id { get; set; }
+        public int Id { get; set; }
         public required string Name { get; set; }
         public required string Email { get; set; }
         public required string Tlf { get; set; }
@@ -20,14 +15,17 @@ namespace PizzaStore
         public Customer()
         {
             CustomerID++;
-            Id = "";
+            Id = CustomerID;
             AllCustomerOrders = new();
         }
 
         public override string ToString()
         {
-            return $"Customer ID: {Id}\nName: {Name}\nEmail: {Email}\nTlf: {Tlf}\n"; //+
-                //$"Orders:\n{string.Join("\n", AllCustomerOrders)}";
+            return $"Customer ID: {Id}\nName: {Name}\nEmail: {Email}\nTlf: {Tlf}\n" +
+                $"Orders: Total = {AllCustomerOrders.Count}\n" +
+                $"\t----------BEGIN Orders For Customer-------\n" +
+                $"{string.Join("\n", AllCustomerOrders)}" +
+                $"\n\t--------END Orders For Customer---------\n";
         }
 
     }

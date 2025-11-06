@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using System.IO;
+﻿using System.Text.Json;
+using PizzaStore.Interfaces;
 
-namespace PizzaStore
+namespace PizzaStore.Customers
 {
-    public class CustomerFile : Icrud<string, Customer>
+    public class CustomerFile : Icrud<string, int, Customer>
     {
 
         public string FilePath { get; private set; }
@@ -33,7 +28,12 @@ namespace PizzaStore
                 Customers = new List<Customer>();
             }
         }
-
+        public Customer? CheckIdToUpdate(int customerId)
+        {
+            Customer? existingCustomer = Customers.FirstOrDefault(c => c.Id == customerId);
+            return existingCustomer;
+            
+        }
         public void Create(Customer customerObj)
         {
             Customers.Add(customerObj);
@@ -48,19 +48,19 @@ namespace PizzaStore
                 Console.WriteLine($"Error saving customers: {ex.Message}");
             }
         }
-
-        public bool CheckIdToUpdate(string customerId)
+        public void Read(string customerName)
         {
-            Customer? existingCustomer = Customers.FirstOrDefault(c => c.Id == customerId);
-            if (existingCustomer == null)
+            Customer? customerToRead = Customers.FirstOrDefault(c => c.Name.Equals(customerName, StringComparison.OrdinalIgnoreCase));
+
+            if (customerToRead != null)
             {
-                return false;
+                Console.WriteLine($"You asked for this customer: \n{customerToRead}");
             }
             else
             {
-                return true;
+                Console.WriteLine($"You asked for a customer which doesn't exist\nReturning to Customer menu ");
             }
-            
+
         }
         public void Update(Customer customerObj)
         {
@@ -70,6 +70,7 @@ namespace PizzaStore
                 existingCustomer.Name = customerObj.Name;
                 existingCustomer.Email = customerObj.Email;
                 existingCustomer.Tlf = customerObj.Tlf;
+                existingCustomer.AllCustomerOrders = customerObj.AllCustomerOrders;
 
                 try
                 {
@@ -86,7 +87,7 @@ namespace PizzaStore
                 throw new Exception($"Customer with ID {customerObj.Id} doesn't exist");
             }
         }
-        public void Delete(string customerId)
+        public void Delete(int customerId)
         {
             Customer? customerToRemove = Customers.Find(c => c.Id == customerId);
             
@@ -109,22 +110,6 @@ namespace PizzaStore
                 throw new Exception($"Customer with ID {customerId} doesn't exist");
             }
         }
-
-        public void Read(string customerName)
-        {
-            Customer? customerToRead = Customers.FirstOrDefault(c => c.Name.Equals(customerName, StringComparison.OrdinalIgnoreCase));
-
-            if (customerToRead != null)
-            {
-                Console.WriteLine($"You asked for this customer: \n{customerToRead}");
-            }
-            else
-            {
-                throw new Exception($"Customer with ID {customerName} doesn't exist");
-            }
-            
-        }
-
         public void PrintAllCustomers()
         {
             foreach (Customer customer in Customers)
