@@ -8,7 +8,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 	<ItemGroup>
-		<Content Include="pizzas.json">
+		<Content Include="Data\pizzas.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
@@ -16,7 +16,7 @@
 	  <Folder Include="bin\Debug\net8.0\" />
 	</ItemGroup>
 	<ItemGroup>
-	  <None Update="customers.json">
+	  <None Update="Data\customers.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>
