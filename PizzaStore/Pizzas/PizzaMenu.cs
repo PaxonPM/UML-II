@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using System.IO;
+﻿using System.Text.Json;
+using PizzaStore.Interfaces;
 
-namespace PizzaStore
+namespace PizzaStore.Pizzas
 {
-     public class PizzaMenu : Icrud<string, Pizza>
+     public class PizzaMenu : Icrud<string, string, Pizza>
     {
         public string FilePath { get; private set; }
         public Dictionary<string, Pizza> Pizzas { get; private set; } = new Dictionary<string, Pizza>();
@@ -31,9 +26,6 @@ namespace PizzaStore
                 Pizzas = new Dictionary<string, Pizza>();
             }
         }
-
-      
-
         public void PrintMenu()
         {
             Console.WriteLine("---- Pizza Menu ----");
@@ -42,12 +34,10 @@ namespace PizzaStore
                 Console.WriteLine(pizza);
             }
         }
-
         public Pizza GetPizzaByNumber(string number)
         {
             return Pizzas[number];
         }
-
         public void Create(Pizza pizzaObj)
         {
             string key = pizzaObj.Number.ToString();
@@ -68,13 +58,12 @@ namespace PizzaStore
                 Console.WriteLine($"Error saving pizzas: {ex.Message}");
             }
         }
-
         public void Read(string key)
         {
             if (!Pizzas.ContainsKey(key))
                 throw new Exception($"Pizza with number {key} doesn't exists");
 
-            Console.WriteLine($"You asked for this pizza: {Pizzas[key]}");
+            Console.WriteLine($"You asked for this pizza:\n {Pizzas[key]}");
         }
         public void Update(Pizza pizzaObj)
         {
