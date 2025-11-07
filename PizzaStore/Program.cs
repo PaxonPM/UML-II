@@ -178,12 +178,12 @@ while (check)
                     case "4":
                         Console.WriteLine("\n--------------------------------------------");
                         Console.Write("Enter your customer ID to update: ");
-                        int customerToUpdate = int.Parse(Console.ReadLine() ?? "0");
-                        Customer? CustomerObjSelected = cfile.CheckIdToUpdate(customerToUpdate);
-                        if (CustomerObjSelected != null)
+                        int IdOfCustomerToUpdate = int.Parse(Console.ReadLine() ?? "0");
+                        Customer? CustomerObjToUpdate = cfile.CheckIdToUpdate(IdOfCustomerToUpdate);
+                        if (CustomerObjToUpdate != null)
                         {
-                            Console.WriteLine($"\nCurrent user info:\n{CustomerObjSelected}");
-                            Customer? updatedCustomer = ui.GetCustomerDetailsToUpdateUser(CustomerObjSelected);
+                            Console.WriteLine($"\nCurrent user info:\n{CustomerObjToUpdate}");
+                            Customer? updatedCustomer = ui.GetCustomerDetailsToUpdateUser(CustomerObjToUpdate);
                             cfile.Update(updatedCustomer);
                             Console.WriteLine($"\nUpdated user:\n {updatedCustomer}");
                         }
