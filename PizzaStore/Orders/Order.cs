@@ -9,9 +9,9 @@ namespace PizzaStore.Orders
     {
         public static int OrderID { get; private set; }
         public int SpecificOrderID { get; }
-
         public Customer OrderCustomer { get; private set; }
         public List<Pizza> PizzasInOrder { get; set; }
+
 
         public Order(Customer customer)
         {
@@ -20,6 +20,7 @@ namespace PizzaStore.Orders
             OrderCustomer = customer;
             PizzasInOrder = new();
         }
+
 
         public double CalculateTotalPrice()
         {
@@ -37,7 +38,6 @@ namespace PizzaStore.Orders
 
             //return OrderCustomer;
         }
-
         public override string ToString()
         {
             return $"--------------------" +
