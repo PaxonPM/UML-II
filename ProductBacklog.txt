@@ -1,0 +1,18 @@
+Som bruger vil jeg gerne kunne se hvilke pizzaer, drikke og tilbehør jeg kan vælge, så jeg kan bestille den mad jeg gerne vil have.
+Vil gerne have det opstillet i et format der er nemt læseligt så jeg har overblik over hvad jeg kan bestille
+Som bruger vil jeg gerne kunne se prisen for hver item, så jeg ved hvad tingene koster
+Som bruger vil jeg gerne kunne se det totale beløb for det jeg har valgt, så jeg ved hvad det kommer til at koste mig.
+Som bruger vil jeg gerne kunne se de totale ordrer som jeg har bestilt.
+Som virksomhedsejer, ville jeg gerne kunne se, hvilke ordrer der er klar til at blive lavet.
+Som pizzamand vil jeg gerne kunne se ordrens indhold og kunden den tilhører
+Som pizzamand vil jeg gerne se den totalpris for ordren så jeg ved hvad jeg skal bede kunden om at betale.
+Som virksomhedsejer vil jeg gerne kunne se tal og statistik, så jeg kan se hvordan forretningen går. 
+Som ejer vil jeg gerne have a bruger udfylder kundeoplysninger så jeg ved hvem ordren tilhører 
+
+Som bruger/ejer vil jeg gerne have en ui
+Som ejer vil jeg gerne have at pizzaer og kunder gemmes
+Som bruger vil jeg gerne kunde tilgå mine oprettede kundeoplysninger fra tidligere brug
+
+
+
+
