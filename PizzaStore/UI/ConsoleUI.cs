@@ -99,16 +99,16 @@ namespace PizzaStore.UI
                 Tlf = tlf
             };
         }
-        public Customer GetCustomerDetailsToUpdateUser(Customer customerToUpdate)
+        public Customer GetCustomerDetailsToUpdateUser(Customer IdOfCustomerToUpdate)
         {
             
             Console.Write("Enter Customer Name: ");
-            customerToUpdate.Name = Console.ReadLine() ?? "";
+            IdOfCustomerToUpdate.Name = Console.ReadLine() ?? "";
             Console.Write("Enter Customer Email: ");
-            customerToUpdate.Email = Console.ReadLine() ?? "";
+            IdOfCustomerToUpdate.Email = Console.ReadLine() ?? "";
             Console.Write("Enter Customer Phone Number: ");
-            customerToUpdate.Tlf = Console.ReadLine() ?? "";
-            return customerToUpdate;
+            IdOfCustomerToUpdate.Tlf = Console.ReadLine() ?? "";
+            return IdOfCustomerToUpdate;
         }
         public Pizza GetPizzaDetailsFromAdmin()
         {
