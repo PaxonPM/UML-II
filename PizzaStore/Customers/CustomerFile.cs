@@ -15,6 +15,8 @@ namespace PizzaStore.Customers
             FilePath = filePath;
             LoadCustomersFromJson(FilePath);
         }
+
+
         private void LoadCustomersFromJson(string filePath)
         {
             try
@@ -33,6 +35,13 @@ namespace PizzaStore.Customers
             Customer? existingCustomer = Customers.FirstOrDefault(c => c.Id == customerId);
             return existingCustomer;
             
+        }
+        public void PrintAllCustomers()
+        {
+            foreach (Customer customer in Customers)
+            {
+                Console.WriteLine(customer);
+            }
         }
         public void Create(Customer customerObj)
         {
@@ -108,13 +117,6 @@ namespace PizzaStore.Customers
             else
             {
                 throw new Exception($"Customer with ID {customerId} doesn't exist");
-            }
-        }
-        public void PrintAllCustomers()
-        {
-            foreach (Customer customer in Customers)
-            {
-                Console.WriteLine(customer);
             }
         }
     }

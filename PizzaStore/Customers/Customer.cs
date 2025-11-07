@@ -8,9 +8,8 @@ namespace PizzaStore.Customers
         public required string Name { get; set; }
         public required string Email { get; set; }
         public required string Tlf { get; set; }
+        public List<string> AllCustomerOrders { get; set; } = new();
 
-
-       public List<string> AllCustomerOrders { get; set; } = new();
 
         public Customer()
         {
@@ -18,6 +17,7 @@ namespace PizzaStore.Customers
             Id = CustomerID;
             AllCustomerOrders = new();
         }
+
 
         public override string ToString()
         {
