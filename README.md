@@ -6,7 +6,7 @@ Selvom grundfunktionaliteten er på plads, er der stadig en række kendte proble
 Selvom basisfunktionaliteten er der, og programmet virker, synes jeg, der er en del forbedringer, der kan laves.  
 Den sidste del af udviklingen blev lidt panisk så er virkelig ikke særlig tilfreds med resultatet.
 
-Bl.a. hvordan der er en del **console output** i flere af klasserne for at håndtere og sige hvis der er fejl, eller for at printe items ol.lign fra lister/dict.
+Bl.a. hvordan der er en del **console output** i flere af klasserne for at håndtere mulige fejl, eller for at printe items fra lister/dict.
 
 
 Så derfor fortsætter jeg med det stille og roligt i seprerate branches
