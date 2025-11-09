@@ -8,8 +8,8 @@ Den sidste del af udviklingen blev lidt panisk så er virkelig ikke særlig tilf
 
 Bl.a. hvordan der er en del **console output** i flere af klasserne for at håndtere og sige hvis der er fejl, eller for at printe items ol.lign fra lister/dict.
 
-###Så derfor fortsætter jeg med det stille og roligt i seprerate branches
 
+Så derfor fortsætter jeg med det stille og roligt i seprerate branches
 
 ## Status
 
