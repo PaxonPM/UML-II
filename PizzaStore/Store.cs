@@ -54,7 +54,7 @@ namespace PizzaStore
             };
             uiTutorial.PrintLinesSlowly(lines);
             uiTutorial.Pause();
-            cFileTutorial.PrintAllCustomers();
+            cFileTutorial.PrintCustomerFile();
             uiTutorial.Pause();
             #endregion
 
@@ -125,7 +125,7 @@ namespace PizzaStore
             };
             uiTutorial.PrintLinesSlowly(lines);
             uiTutorial.Pause();
-            cFileTutorial.PrintAllCustomers();
+            cFileTutorial.PrintCustomerFile();
             uiTutorial.Pause();
             #endregion
 
@@ -151,7 +151,7 @@ namespace PizzaStore
             };
             uiTutorial.PrintLinesSlowly(lines);
             uiTutorial.Pause();
-            cFileTutorial.PrintAllCustomers();
+            cFileTutorial.PrintCustomerFile();
             uiTutorial.Pause();
             #endregion
 
