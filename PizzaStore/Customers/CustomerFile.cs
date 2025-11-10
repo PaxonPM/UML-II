@@ -37,9 +37,9 @@ namespace PizzaStore.Customers
             return existingCustomer;
             
         }
-        public void PrintAllCustomers()
+        public void PrintCustomerFile()
         {
-            Helpers.HelperPrintAllCustomers(Customers);
+            Helpers.PrintAllCustomers(Customers);
         }
         public void Create(Customer customerObj)
         {
@@ -91,7 +91,7 @@ namespace PizzaStore.Customers
             }
             else
             {
-                ErrorHandler.CustomerNotFound(customerObj.Id);
+                ErrorHandler.CustomerIdError(customerObj.Id, "Customer with the following ID doesn't exists");
             }
         }
         public void Delete(int customerId)
@@ -114,7 +114,7 @@ namespace PizzaStore.Customers
             }
             else
             {
-                ErrorHandler.CustomerNotFound(customerId);
+                ErrorHandler.CustomerIdError(customerId, "Customer with the following ID doesn't exists");
             }
         }
     }

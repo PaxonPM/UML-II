@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 using PizzaStore.Interfaces;
-
+using PizzaStore.Utils;
 namespace PizzaStore.Pizzas
 {
      public class PizzaMenu : Icrud<string, string, Pizza>
@@ -26,17 +26,16 @@ namespace PizzaStore.Pizzas
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error loading pizzas: {ex.Message}");
+                ErrorHandler.PrintError(ex, "Error loading pizzas: ");
                 Pizzas = new Dictionary<string, Pizza>();
             }
         }
         public void PrintMenu()
         {
-            Console.WriteLine("---- Pizza Menu ----");
-            foreach (Pizza pizza in Pizzas.Values)
-            {
-                Console.WriteLine(pizza);
-            }
+            Helpers.message("---- Pizza Menu ----");
+
+            Helpers.PrintAllPizzas(Pizzas);
+            
         }
         public Pizza GetPizzaByNumber(string number)
         {
@@ -47,8 +46,7 @@ namespace PizzaStore.Pizzas
             string key = pizzaObj.Number.ToString();
 
             if (Pizzas.ContainsKey(key))
-                throw new Exception($"Pizza with number {key} already exists");
-
+                ErrorHandler.PizzaNumberError(key, "A pizza with the following number already exists");
 
             Pizzas[key] = pizzaObj;
 
@@ -59,22 +57,22 @@ namespace PizzaStore.Pizzas
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error saving pizzas: {ex.Message}");
+                ErrorHandler.PrintError(ex, "Error saving pizzas: ");
             }
         }
         public void Read(string key)
         {
             if (!Pizzas.ContainsKey(key))
-                throw new Exception($"Pizza with number {key} doesn't exists");
+                ErrorHandler.PizzaNumberError(key, "Pizza with the following number doesn't exist");
 
-            Console.WriteLine($"You asked for this pizza:\n {Pizzas[key]}");
+            Helpers.PrintPizza(Pizzas[key], "You asked for this pizza:");
         }
         public void Update(Pizza pizzaObj)
         {
             string key = pizzaObj.Number.ToString();
 
             if (!Pizzas.ContainsKey(key))
-                throw new Exception($"Pizza with number {key} doesn't exists");
+                ErrorHandler.PizzaNumberError(key, "Pizza with the following number doesn't exist");
 
             Pizzas[key] = pizzaObj;
 
@@ -85,14 +83,15 @@ namespace PizzaStore.Pizzas
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error saving pizzas: {ex.Message}");
+                ErrorHandler.PrintError(ex, "Error saving pizzas: ");
             }
 
         }
         public void Delete(string key)
         {
             if (!Pizzas.ContainsKey(key))
-                throw new Exception($"Pizza with number {key} doesn't exists");
+                ErrorHandler.PizzaNumberError(key, "Pizza with the following number doesn't exist");
+            
             Pizzas.Remove(key);
 
             try
@@ -102,7 +101,7 @@ namespace PizzaStore.Pizzas
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error saving pizzas: {ex.Message}");
+                ErrorHandler.PrintError(ex, "Error saving pizzas: ");
             }
         }
     }

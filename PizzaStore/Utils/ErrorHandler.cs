@@ -10,9 +10,9 @@ namespace PizzaStore.Utils
     {
 
 
-        public static void PrintError(Exception ex, string contextMessage = "")
+        public static void PrintError(Exception ex, string message = "")
         {
-            var errorMessage = $"[Error] {contextMessage}\n" +
+            var errorMessage = $"[Error] {message}\n" +
                                $"Message: {ex.Message}\n";
             Console.WriteLine(errorMessage);
         }
@@ -22,9 +22,14 @@ namespace PizzaStore.Utils
             Console.WriteLine($"[Info] {message}");
         }
 
-        public static void CustomerNotFound(int id)
+        public static void CustomerIdError(int id, string message)
         {
-            throw new Exception($"Customer with ID {id} not found.");
+            throw new Exception($"{message}: {id}");
+        }
+
+        public static void PizzaNumberError(string key, string message)
+        {
+            throw new Exception($"{message}: {key}");
         }
     }
 }
