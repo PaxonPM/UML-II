@@ -150,7 +150,7 @@ while (check)
                     // Print CustomerFile
                     case "1":
                         Console.WriteLine("\n--------------------------------------------");
-                        cfile.PrintAllCustomers();
+                        cfile.PrintCustomerFile();
 
                         ui.Pause();
                         break;
@@ -285,7 +285,7 @@ while (check)
             }
 
             break;
-
+            
         //Initiate Store.Start()
         case "4":
             Console.WriteLine("\n--------------------------------------------");

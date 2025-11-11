@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using PizzaStore.Interfaces;
+using PizzaStore.Utils;
 
 namespace PizzaStore.Customers
 {
@@ -36,12 +37,9 @@ namespace PizzaStore.Customers
             return existingCustomer;
             
         }
-        public void PrintAllCustomers()
+        public void PrintCustomerFile()
         {
-            foreach (Customer customer in Customers)
-            {
-                Console.WriteLine(customer);
-            }
+            Helpers.PrintAllCustomers(Customers);
         }
         public void Create(Customer customerObj)
         {
@@ -54,7 +52,7 @@ namespace PizzaStore.Customers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error saving customers: {ex.Message}");
+                ErrorHandler.PrintError(ex, "Error saving new customer");
             }
         }
         public void Read(string customerName)
@@ -63,11 +61,11 @@ namespace PizzaStore.Customers
 
             if (customerToRead != null)
             {
-                Console.WriteLine($"You asked for this customer: \n{customerToRead}");
+                Helpers.PrintCustomer(customerToRead, "You asked for this customer:");
             }
             else
             {
-                Console.WriteLine($"You asked for a customer which doesn't exist\nReturning to Customer menu ");
+                ErrorHandler.PrintGenericMessage("Customer not found.\nReturning to Customer menu\n");
             }
 
         }
@@ -88,12 +86,12 @@ namespace PizzaStore.Customers
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Error saving customer: {ex.Message}");
+                    ErrorHandler.PrintError(ex, "Error updating customer");
                 }
             }
             else
             {
-                throw new Exception($"Customer with ID {customerObj.Id} doesn't exist");
+                ErrorHandler.CustomerIdError(customerObj.Id, "Customer with the following ID doesn't exists");
             }
         }
         public void Delete(int customerId)
@@ -111,12 +109,12 @@ namespace PizzaStore.Customers
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Error saving customers: {ex.Message}");
+                    ErrorHandler.PrintError(ex, "Error deleting customer");
                 }
             }
             else
             {
-                throw new Exception($"Customer with ID {customerId} doesn't exist");
+                ErrorHandler.CustomerIdError(customerId, "Customer with the following ID doesn't exists");
             }
         }
     }
