@@ -1,10 +1,9 @@
 # 🍕 UML-II
 
 Dette projekt er en opgave og afleveret via `main`-branchen.  
-Selvom grundfunktionaliteten er på plads, er der stadig en række kendte problemer og forbedringspunkter.
 
 Selvom basisfunktionaliteten er der, og programmet virker, synes jeg, der er en del forbedringer, der kan laves.  
-Den sidste del af udviklingen blev lidt panisk så er virkelig ikke særlig tilfreds med resultatet.
+Den sidste del af udviklingen blev lidt hektisk så er virkelig ikke særlig tilfreds med resultatet.
 
 Bl.a. hvordan der er en del **console output** i flere af klasserne for at håndtere mulige fejl, eller for at printe items fra lister/dict.
 
